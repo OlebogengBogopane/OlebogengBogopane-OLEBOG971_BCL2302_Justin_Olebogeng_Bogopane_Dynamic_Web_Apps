@@ -57,6 +57,8 @@ const selectors = {
     `
     return(element);
 }
+
+
 // Creating initial book previews and appending them to the list
 const starting = document.createDocumentFragment()
 for (const book of matches.slice(0, BOOKS_PER_PAGE)){
@@ -77,7 +79,7 @@ element.value = value;
 element.innerText = text;
 return element ;
 }
-// Creating option elements fo rgenres and authors dropdowns
+// Creating option elements for genres and authors dropdowns
 const genreHtml = document.createDocumentFragment();
 const authorsHtml = document.createDocumentFragment();
 genreHtml.appendChild(createOptionElement('any', 'All Genres'))
@@ -90,6 +92,7 @@ for (const [id, name] of Object.entries(authors)) {
 }
 selectors.searchGenres.appendChild(genreHtml)
 selectors.searchAuthors.appendChild(authorsHtml)
+
 // Checking the user's preferred color scheme and setting the theme
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     selectors.settingsTheme.value = 'night'
@@ -140,7 +143,7 @@ document.querySelector('[data-settings-form]').addEventListener('submit', (event
     document.querySelector('[data-settings-overlay]').open = false
 })
 /**
- * Function tpo handle th esearch form submission
+ * Function to handle the search form submission
  * @param {*} event
  */
 function handleSearchFormSubmit(event) {
@@ -266,7 +269,9 @@ selectors.listItems.addEventListener('click', (event) => {
         }
     }
 // Updating the book details in the active book display
-    if (active) {
+   
+
+if (active) {
         selectors.listActive.open = true
         selectors.listBlur.src = active.image
         selectors.listImage.src = active.image
@@ -275,3 +280,29 @@ selectors.listItems.addEventListener('click', (event) => {
         selectors.listDescription.innerText = active.description
     }
 });
+
+
+function booook(){
+
+for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
+  const element = document.createElement('button')
+  element.classList = 'preview'
+  element.setAttribute('data-preview', id)
+
+  element.innerHTML = `
+      <img
+          class="preview__image"
+          src="${image}"
+      />
+      
+      <div class="preview__info">
+          <h3 class="preview__title">${title}</h3>
+          <div class="preview__author">${authors[author]}</div>
+      </div>
+  `
+
+  starting.appendChild(element)
+  return booook
+}  }
+
+booook()
