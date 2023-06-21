@@ -1,13 +1,12 @@
 
-import { books, authors, genres, BOOKS_PER_PAGE ,} from './data.js'
-//import {  } from './service.js'
-// eslint-disable-next-line no-unused-vars
+import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
+
 let page = 1;
 let matches = books
 
    // Object that stores references to DOM elements using selectors
 
-   const selectors = {
+const selectors = {
     listItems : document.querySelector('[data-list-items]'),
     searchGenres : document.querySelector('[data-search-genres]'),
     searchAuthors : document.querySelector('[data-search-authors]'),
@@ -33,9 +32,6 @@ let matches = books
     save : document.querySelector('[form="settings"]'),
 }
 
-  
-  
-
 /**
  * This function creates a book preview element,
  * extracts necessary data from the book object,
@@ -44,34 +40,22 @@ let matches = books
  * 
  */
 
-
-function createBookPreview(book) {
-  const { author, id, image, title } = book;
-  const previewElement = document.createElement('button');
- previewElement.classList.add('preview');
-  previewElement.setAttribute('data-preview', id);
-
- const imageElement = document.createElement('img');
- imageElement.classList.add('previewimage');
-  imageElement.src = image; 
-  previewElement.appendChild(imageElement);
-
-  const infoElement = document.createElement('div');
-  infoElement.classList.add('previewinfo');
-
-  const titleElement = document.createElement('h3');
-  titleElement.classList.add('previewtitle');
-  titleElement.textContent = title;
-  infoElement.appendChild(titleElement);
-
- const authorElement = document.createElement('div');
-authorElement.classList.add('previewauthor');
- authorElement.textContent = authors[author];
-  infoElement.appendChild(authorElement);
-
- previewElement.appendChild(infoElement);
-
-  return previewElement;
+    function createBookPreview(book) {
+    const { author, id, image, title }  = book;
+    const element = document.createElement('button')
+    element.classList = 'preview'
+    element.setAttribute('data-preview', id)
+    element.innerHTML = `
+        <img
+            class="preview__image"
+            src="${image}"
+        />
+        <div class="preview__info">
+            <h3 class="preview__title">${title}</h3>
+            <div class="preview__author">${authors[author]}</div>
+        </div>
+    `
+    return(element);
 }
 
 
@@ -81,11 +65,7 @@ for (const book of matches.slice(0, BOOKS_PER_PAGE)){
     const previewElement =createBookPreview(book);
     starting.appendChild(previewElement);
 }
-document.addEventListener('DOMContentLoaded', () => {
-  // Your code that accesses the elements and performs operations
-  selectors.listItems.appendChild(starting)
-});
-
+selectors.listItems.appendChild(starting)
 
 /**
  * Function to create an option element for a dropdown
@@ -302,3 +282,27 @@ if (active) {
 });
 
 
+function booook(){
+
+for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
+  const element = document.createElement('button')
+  element.classList = 'preview'
+  element.setAttribute('data-preview', id)
+
+  element.innerHTML = `
+      <img
+          class="preview__image"
+          src="${image}"
+      />
+      
+      <div class="preview__info">
+          <h3 class="preview__title">${title}</h3>
+          <div class="preview__author">${authors[author]}</div>
+      </div>
+  `
+
+  starting.appendChild(element)
+  return booook
+}  }
+
+booook()
