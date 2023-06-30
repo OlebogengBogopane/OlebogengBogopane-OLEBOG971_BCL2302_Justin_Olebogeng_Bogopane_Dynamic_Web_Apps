@@ -1,99 +1,88 @@
+import {html, css, LitElement}
 
-
-
-/**
-  * Maximum allowed number.
-  * @constant {number}
-  */
-
- const MAX_NUMBER = 15
-
-/**
- * Minimum allowed number.
- * @constant {number}
- */
-
-const MIN_NUMBER = -5
-/**
- * The number input element.
- * @type {HTMLInputElement}
- */
-
-const number = document.querySelector('[data-key="number"]')
-/**
- * The subtract button element.
- * @type {HTMLButtonElement}
- */
-
-const subtract = document.querySelector('[variant="danger"]')
-/**
- * The add button element.
- * @type {HTMLButtonElement}
- */
-
-
-const add = document.querySelector('[variant="success"]')
-
-
-
-const reset = document.querySelector('[variant="default"]')
-
-
-
-
-/**
- * Event handler for the subtract button click event.
- * @prop {Function} subtractHandler - Event handler for the subtract button click event.
- * @param {Event} event - The click event object.
- */
-const subtractHandler = (event) => {
-    /**
-     * The new value after subtracting one from the current number value.
-     * @type {number}
-     * @prop {number} newValue - The new value after subtracting one.
-     */
-    const newValue = parseInt(number.value) - 1;
-
-    number.value = newValue;
-
-    if (newValue <= MIN_NUMBER) {
-        subtract.disabled = true;
-    } else {
-        subtract.disabled = false;
+class CounterElement extends LitElement {
+  static styles = css`
+    .counter {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.5rem;
     }
-};
 
-
-const addHandler = () => {
-    const newValue = parseInt(number.value) + 1
-    number.value = newValue
-
-    if (newValue >= MAX_NUMBER) {
-        add.disabled = true
-    } else {
-        add.disabled = false
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
     }
-}
 
-const resetHandler = () => {
-    number.value = 0;
-    add.disabled = false;
-    subtract.disabled = false;
-    showMessage("Reset has been pressed")
-}
+    .disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  `;
 
-const showMessage = (message) => {
-    alert(message);
-    message.disabled = false
-    
+  static properties = {
+    number: { type: Number },
+    isMinimum: { type: Boolean },
+    isMaximum: { type: Boolean },
+  };
+
+  constructor() {
+    super();
+    this.number = 0;
+    this.isMinimum = false;
+    this.isMaximum = false;
+  }
+
+  subtract() {
+    if (this.number > MIN_NUMBER) {
+      this.number--;
+      this.isMinimum = false;
+      this.isMaximum = false;
+    }
+
+    if (this.number === MIN_NUMBER) {
+      this.isMinimum = true;
+    }
+  }
+
+  add() {
+    if (this.number < MAX_NUMBER) {
+      this.number++;
+      this.isMinimum = false;
+      this.isMaximum = false;
+    }
+
+    if (this.number === MAX_NUMBER) {
+      this.isMaximum = true;
+    }
+  }
+
+  reset() {
+    this.number = 0;
+    this.isMinimum = false;
+    this.isMaximum = false;
+  }
+
+  render() {
+    return html`
+      <div class="counter">
+        <button
+          class="${this.isMinimum ? 'disabled' : ''}"
+          @click=${this.subtract}
+          ?disabled=${this.isMinimum}
+        >
+          Subtract
+        </button>
+        <span>${this.number}</span>
+        <button
+          class="${this.isMaximum ? 'disabled' : ''}"
+          @click=${this.add}
+          ?disabled=${this.isMaximum}
+        >
+          Add
+        </button>
+      </div>
+      <button @click=${this.reset}>Reset</button>
+    `;
+  }
 };
-
-
-
-subtract.addEventListener('click', subtractHandler)
-add.addEventListener('click', addHandler)
-reset.addEventListener('click', resetHandler )
-
-
-
-
