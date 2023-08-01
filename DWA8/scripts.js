@@ -39,35 +39,71 @@ const selectors = {
  * @param {*} book
  * 
  */
+function BookPreview(book) {
+  this.author = book.author;
+  this.id = book.id;
+  this.image = book.image;
+  this.title = book.title;
 
-function createBookPreview(book) {
-  const { author, id, image, title } = book;
-  const previewElement = document.createElement('button');
- previewElement.classList.add('preview');
-  previewElement.setAttribute('data-preview', id);
+  this.createElement = function() {
+    const previewElement = document.createElement('button');
+    previewElement.classList.add('preview');
+    previewElement.setAttribute('data-preview', this.id);
 
- const imageElement = document.createElement('img');
- imageElement.classList.add('previewimage');
-  imageElement.src = image; 
-  previewElement.appendChild(imageElement);
+    const imageElement = document.createElement('img');
+    imageElement.classList.add('previewimage');
+    imageElement.src = this.image;
+    previewElement.appendChild(imageElement);
 
-  const infoElement = document.createElement('div');
-  infoElement.classList.add('previewinfo');
+    const infoElement = document.createElement('div');
+    infoElement.classList.add('previewinfo');
 
-  const titleElement = document.createElement('h3');
-  titleElement.classList.add('previewtitle');
-  titleElement.textContent = title;
-  infoElement.appendChild(titleElement);
+    const titleElement = document.createElement('h3');
+    titleElement.classList.add('previewtitle');
+    titleElement.textContent = this.title;
+    infoElement.appendChild(titleElement);
 
- const authorElement = document.createElement('div');
-authorElement.classList.add('previewauthor');
- authorElement.textContent = authors[author];
-  infoElement.appendChild(authorElement);
+    const authorElement = document.createElement('div');
+    authorElement.classList.add('previewauthor');
+    authorElement.textContent = authors[this.author];
+    infoElement.appendChild(authorElement);
 
- previewElement.appendChild(infoElement);
+    previewElement.appendChild(infoElement);
 
-  return previewElement;
+    return previewElement;
+  };
 }
+
+
+
+// function createBookPreview(book) {
+//   const { author, id, image, title } = book;
+//   const previewElement = document.createElement('button');
+//  previewElement.classList.add('preview');
+//   previewElement.setAttribute('data-preview', id);
+
+//  const imageElement = document.createElement('img');
+//  imageElement.classList.add('previewimage');
+//   imageElement.src = image; 
+//   previewElement.appendChild(imageElement);
+
+//   const infoElement = document.createElement('div');
+//   infoElement.classList.add('previewinfo');
+
+//   const titleElement = document.createElement('h3');
+//   titleElement.classList.add('previewtitle');
+//   titleElement.textContent = title;
+//   infoElement.appendChild(titleElement);
+
+//  const authorElement = document.createElement('div');
+// authorElement.classList.add('previewauthor');
+//  authorElement.textContent = authors[author];
+//   infoElement.appendChild(authorElement);
+
+//  previewElement.appendChild(infoElement);
+
+//   return previewElement;
+// }
 
 
 // Creating initial book previews and appending them to the list

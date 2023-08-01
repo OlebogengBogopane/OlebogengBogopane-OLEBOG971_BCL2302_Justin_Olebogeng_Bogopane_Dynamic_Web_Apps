@@ -58,6 +58,59 @@ const selectors = {
     return(element);
 }
 
+//add to cart component
+class HeaderComponent extends HTMLElement {
+  constructor() {
+    super();
+
+  
+    const shadowRoot = this.attachShadow({ mode: 'open' });
+
+    // Add to cart button element
+    const button = document.createElement('button');
+    button.textContent = 'Add to Cart';
+
+    shadowRoot.appendChild(button);
+  
+  console.log("add item to cart")
+
+  button.addEventListener('click', () => {
+  
+    alert('You cannot buy book now');
+  });
+
+}}
+
+customElements.define('header-component', HeaderComponent);
+
+
+
+
+
+
+// const template= document.createElement("template");
+// template.innerHTML = `
+// <style>
+//   :host {
+//     --primary-color:blue;
+//   }
+//   header {
+//     color: var(--primary-color);
+//   }
+// </style>
+// <p>Woah! You cannot buy that book fam</p>`;
+
+// class F1Quote extends HTMLElement {
+//   constructor() {
+//     super();
+//     this.attachShadow({ mode:"open" });
+//     this.shadowRoot.appendChild(template.content.cloneNode(true));
+//   }
+// }
+
+// customElements.define("f1-quote", F1Quote);
+
+
 
 // Creating initial book previews and appending them to the list
 const starting = document.createDocumentFragment()

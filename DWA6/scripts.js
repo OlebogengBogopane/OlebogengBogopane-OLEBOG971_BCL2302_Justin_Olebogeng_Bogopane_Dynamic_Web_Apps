@@ -21,6 +21,7 @@ let matches = books
  */
 
 
+
 function createBookPreview(book) {
   const { author, id, image, title } = book;
   const previewElement = document.createElement('button');

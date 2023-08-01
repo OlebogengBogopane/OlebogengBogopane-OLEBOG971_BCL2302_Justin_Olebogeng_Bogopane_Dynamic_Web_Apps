@@ -1,4 +1,5 @@
-import {html, css, LitElement}
+import {html, css, LitElement} from "./lit-html.js";
+//import {LitElement, html} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
 
 class CounterElement extends LitElement {
   static styles = css`
